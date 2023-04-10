@@ -1,18 +1,20 @@
 import requests
 import json
-from tinydb import TinyDB, Query
 
 
 class LibManager():
-    def __init__(self, credential_helper):
-        self.ch = credential_helper
-        self.db = TinyDB('media_db.json')
+    def __init__(self, user_id:str, access_token):
+        self.info_url = "https://metropol-mediensuche.de/services/de/metropolcard/account/info"
+        self.request_headers={'Authorization': f'Bearer {access_token}'}
 
+    def get_lent_media(self):
+        try:
+            r = requests.get(self.info_url, headers=self.request_headers)
+        except HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err}')
+        return r.json()['lent']
 
-    def get_infos(self):
-        info_url = "https://metropol-mediensuche.de/services/de/metropolcard/account/info"
-
-        for cred in self.ch.get_credentials():
-            request_headers={'Authorization': f'Bearer {cred["token"]}'}
-            r = requests.get(info_url, headers=request_headers)
-            return r.json()
+    def renew_media(self, media_id):
+        # From day 1: 2€
+        # Save cost savings in Database
+        pass

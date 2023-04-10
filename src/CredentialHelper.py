@@ -5,7 +5,7 @@ from tinydb import TinyDB, Query
 
 class CredentialHelper():
     def __init__(self):
-        self.db = TinyDB('db.json')
+        self.db = TinyDB('credential.db.json')
         
     def renew_token(self, card_number:str, password:str, lib_id:int=8726):
         try:
@@ -24,6 +24,6 @@ class CredentialHelper():
         return self.db.search(cred.user_id.exists())
 
 
-    def add_user(self, user_id, password):
+    def add_user(self, user_name, user_id, password):
         token = self.renew_token(card_number=user_id, password=password)['token']
-        self.db.insert({'user_id': user_id, 'password': password, 'token': token, 'last_refresh': str(time.time())})
+        self.db.insert({'user_name': user_name, 'user_id': user_id, 'password': password, 'token': token, 'last_refresh': str(time.time())})
