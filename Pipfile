@@ -7,6 +7,7 @@ name = "pypi"
 requests = "*"
 tinydb = "*"
 typer = {extras = ["all"], version = "*"}
+mailtrap = "*"
 
 [dev-packages]
 

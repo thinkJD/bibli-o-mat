@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "46bce7a85e1e458431c2a1691593da3224d7fb767039d12616a536d374a8f56e"
+            "sha256": "ebee8284896869819e5e34a630fb6384748a14cb7f4e3e0cff5f42f819fa9b52"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -134,6 +134,14 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==3.4"
+        },
+        "mailtrap": {
+            "hashes": [
+                "sha256:708cf4485b53cd22f0636fc94e8f033f7924dfac3db63802bc3efae1da6c3feb",
+                "sha256:cc8305ebd339b258a60b9cd0b8e4de6f33744f65d7fb15a1160a6904b6031a38"
+            ],
+            "index": "pypi",
+            "version": "==2.0.0"
         },
         "pygments": {
             "hashes": [
