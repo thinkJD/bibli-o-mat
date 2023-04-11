@@ -14,10 +14,16 @@ from LibManager import LibManager
 console = Console()
 app = typer.Typer()
 ch = CredentialHelper()
-user_id = ch.get_credentials()[0]['user_id']
-lm = LibManager(user_id, ch.get_credentials()[0]['token'])
-db = TinyDB('media.db.json')
+user_id = None
+lm = None
+db = TinyDB('db.json').table('history')
 
+
+def setup():
+    global user_id
+    global lm
+    user_id = ch.get_credentials()[0]['user_id']
+    lm = LibManager(user_id, ch.get_credentials()[0]['token'])
 
 @app.command()
 def add_user(user_name:str, user_id: str, password: str):
@@ -25,6 +31,7 @@ def add_user(user_name:str, user_id: str, password: str):
 
 @app.command()
 def list_users():
+    setup()
     table = Table("User Name", "User ID")
     for user in ch.get_credentials():
         table.add_row(user['user_name'], user['user_id'])
@@ -32,6 +39,7 @@ def list_users():
 
 @app.command()
 def list_media():
+    setup()
     # TODO: Add option to filter by user
     lent_media = lm.get_lent_media()
 
@@ -39,6 +47,32 @@ def list_media():
 
     table = Table("Title", "Author", "Due Date")
     for media in lent_media:
+        table.add_row(media['title'], media['author'], media['deadline'])
+    console.print(table)
+    
+@app.command()
+def renewable_media():
+    setup()
+    renewable_media = lm.get_renewable_media()
+    if not renewable_media:
+        print("No renewable media found.")
+        return
+    
+    table = Table("Title", "Author", "Due Date")
+    for media in renewable_media:
+        table.add_row(media['title'], media['author'], media['deadline'])
+    console.print(table)
+    
+@app.command()
+def get_due_media():
+    setup()
+    due_media = lm.get_due_media()
+    if not due_media:
+        print("No due media found.")
+        return
+    
+    table = Table("Title", "Author", "Due Date")
+    for media in due_media:
         table.add_row(media['title'], media['author'], media['deadline'])
     console.print(table)
 
