@@ -9,6 +9,7 @@ from rich.table import Table
 from rich import print
 from CredentialHelper import CredentialHelper
 from LibManager import LibManager
+from send_mail import SendMail
 
 
 console = Console()
@@ -75,6 +76,11 @@ def get_due_media():
     for media in due_media:
         table.add_row(media['title'], media['author'], media['deadline'])
     console.print(table)
+    
+@app.command()
+def send_mail(api_token: str):
+    sm = SendMail(api_token)
+    sm.send_mail()
 
 
 if __name__ == "__main__":
