@@ -1,27 +1,26 @@
-import requests
-
-TEMPLATE = """
-
-"""
-
+import mailtrap as mt
 
 class SendMail():
     def __init__(self, api_token) -> None:
-        self.url = "https://send.api.mailtrap.io/api/send"
+        self.client = mt.MailtrapClient(token=api_token)
         self.headers = {
             "Authorization": f"Bearer {api_token}",
             "Content-Type": "application/json"
         }
+        
 
-    def render_mail():
-        payload = {'from':
-            {"email":"mailtrap@thinkjd.de",
-             "name":"Mailtrap Test"
-            },
-            "to":[{"email":"jd.georgens@gmail.com"}],"subject":"You are awesome!","text":"Congrats for sending test email with Mailtrap!","category":"Integration Test"}
-
+    def render_mail(self, to:str ):
+        mail = mt.Mail(
+            sender=mt.Address(email="bibbot@thinkjd.de", name="Mailtrap Test"),
+            to=[mt.Address(email=f"{to}")],
+            subject="bibli-o-mat hat Geld gespart!",
+            text="""
+            BeeB Boop ich war fleißig, dass Du es nicht sein musst.
+            """,
+            )
+        return mail
+    
 
     def send_mail(self):
-        payload = "{\"from\":{\"email\":\"mailtrap@thinkjd.de\",\"name\":\"Mailtrap Test\"},\"to\":[{\"email\":\"jd.georgens@gmail.com\"}],\"subject\":\"You are awesome!\",\"text\":\"Congrats for sending test email with Mailtrap!\",\"category\":\"Integration Test\"}"
-        response = requests.request("POST", self.url, headers=self.headers, data=payload)
+        self.client.send(self.render_mail('jd.goergens@gmail.com'))
         print(response.text)

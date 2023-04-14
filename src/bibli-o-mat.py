@@ -7,8 +7,8 @@ from tinydb import TinyDB, Query
 from rich.console import Console
 from rich.table import Table
 from rich import print
-from CredentialHelper import CredentialHelper
-from LibManager import LibManager
+from credential_helper import CredentialHelper
+from metropol_library import MetropolLibrary
 from send_mail import SendMail
 
 
@@ -23,8 +23,8 @@ db = TinyDB('db.json').table('history')
 def setup():
     global user_id
     global lm
-    user_id = ch.get_credentials()[0]['user_id']
-    lm = LibManager(user_id, ch.get_credentials()[0]['token'])
+    user_id = ch.get_credentials()[1]['user_id']
+    lm = MetropolLibrary(user_id, ch.get_credentials()[1]['token'])
 
 @app.command()
 def add_user(user_name:str, user_id: str, password: str):
@@ -77,10 +77,23 @@ def get_due_media():
         table.add_row(media['title'], media['author'], media['deadline'])
     console.print(table)
     
+
+@app.command()
+def renew_media():
+    setup()
+    renewable_media = lm.get_renewable_media()
+    if not renewable_media:
+        print("No renewable media found.")
+        return
+    
+    lm.renew_media(renewable_media)
+    print("Renewed media.")
+    
 @app.command()
 def send_mail(api_token: str):
     sm = SendMail(api_token)
     sm.send_mail()
+    
 
 
 if __name__ == "__main__":
