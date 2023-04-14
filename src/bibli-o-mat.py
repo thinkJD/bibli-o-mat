@@ -15,33 +15,34 @@ from send_mail import SendMail
 console = Console()
 app = typer.Typer()
 ch = CredentialHelper()
-user_id = None
 lm = None
 db = TinyDB('db.json').table('history')
 
 
-def setup():
-    global user_id
+def setup(user_id: str):
     global lm
-    user_id = ch.get_credentials()[1]['user_id']
-    lm = MetropolLibrary(user_id, ch.get_credentials()[1]['token'])
+    credentials = ch.get_credentials(user_id)
+    lm = MetropolLibrary(credentials['id'], credentials['token'])
+
 
 @app.command()
-def add_user(user_name:str, user_id: str, password: str):
-    ch.add_user(user_name, user_id, password)
+def add_user(name:str, mail:str, id: str, password: str):
+    ch.add_user(name, mail, id, password)
+
 
 @app.command()
 def list_users():
-    setup()
-    table = Table("User Name", "User ID")
+    table = Table('Name', 'Email', 'ID')
     for user in ch.get_credentials():
-        table.add_row(user['user_name'], user['user_id'])
+        table.add_row(user['name'], user['mail'], user['id'])
     console.print(table)
 
+
 @app.command()
-def list_media():
-    setup()
-    # TODO: Add option to filter by user
+def list_media(name: str = typer.Argument(..., envvar="USER_NAME")):
+    user_id = ch.get_user_id_by_name(name)
+    setup(user_id)
+
     lent_media = lm.get_lent_media()
 
     db.insert({'user_id': user_id, 'lent_media': lent_media, 'timestamp': str(time.time())})
@@ -50,10 +51,11 @@ def list_media():
     for media in lent_media:
         table.add_row(media['title'], media['author'], media['deadline'])
     console.print(table)
-    
+
+
 @app.command()
-def renewable_media():
-    setup()
+def renewable_media(user_id: str = typer.Argument(..., envvar="USER_ID")):
+    setup(user_id)
     renewable_media = lm.get_renewable_media()
     if not renewable_media:
         print("No renewable media found.")
@@ -63,7 +65,8 @@ def renewable_media():
     for media in renewable_media:
         table.add_row(media['title'], media['author'], media['deadline'])
     console.print(table)
-    
+
+
 @app.command()
 def get_due_media():
     setup()
@@ -85,15 +88,16 @@ def renew_media():
     if not renewable_media:
         print("No renewable media found.")
         return
-    
     lm.renew_media(renewable_media)
-    print("Renewed media.")
-    
+    print("Renewed media, sending mail...")
+
+
 @app.command()
-def send_mail(api_token: str):
+def send_mail(api_token: str = typer.Argument(..., envvar="MAILTRAP_API_TOKEN")):
+    setup()
+    mediums = lm.get_renewable_media()
     sm = SendMail(api_token)
-    sm.send_mail()
-    
+    sm.send_mail('jd.georgens@gmail.com', mediums)
 
 
 if __name__ == "__main__":

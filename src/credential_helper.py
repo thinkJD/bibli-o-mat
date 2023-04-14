@@ -18,12 +18,25 @@ class CredentialHelper():
             print(f'Other error occurred: {err}') 
         return r.json()
 
-    
-    def get_credentials(self):
+
+    def get_user_id_by_name(self, name:str):
         cred = Query()
-        return self.db.search(cred.user_id.exists())
+        result = self.db.search(cred.name == name)
+        if result:
+            return result[0]['id']
 
 
-    def add_user(self, user_name, user_id, password):
+    def get_credentials(self, user_id:str=None):
+        cred = Query()
+        if user_id:
+            # Return credentials for one id
+            result = self.db.search(cred.id == user_id)
+            return result[0]
+        else:
+            # Return all credentials
+            return self.db.search(cred.id.exists())
+
+
+    def add_user(self, name, mail, id, password):
         token = self.renew_token(card_number=user_id, password=password)['token']
-        self.db.insert({'user_name': user_name, 'user_id': user_id, 'password': password, 'token': token, 'last_refresh': str(time.time())})
+        self.db.insert({'name': name, 'mail': mail, 'id': id, 'password': password, 'token': token, 'last_refresh': str(time.time())})
