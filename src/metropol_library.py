@@ -49,9 +49,10 @@ class MetropolLibrary():
         return ret_val
 
 
-    def renew_media(self, mediums:list()):
+    def renew_media(self, mediums:list(), count:int=None):
         renewed_media = list()
-        mediums = mediums[:2]
+        if count:
+            mediums = mediums[:count]
         for media in mediums:
             request_data = {'libraryId': self.library_id,
                             'recordId': media['prolongData'],
