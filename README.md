@@ -1,2 +1,1 @@
-# bib-cost-saver
-Automatisch die medien verlöngern
+# bibli-o-mat
