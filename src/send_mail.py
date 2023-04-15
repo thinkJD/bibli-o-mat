@@ -30,10 +30,10 @@ Mit Freude habe ich folgende Medien verlängert:
 
 {table}
 
-Ich hoffe ich konnte Dir den Stress ersparen 
-die {cost_saved}€ selbst zu sparen 🤑
+Du musst nicht zur Bibliothek und musst keine
+{cost_saved}€ Säumnisgebühr zahlen 🤑.
 
-Bibli-o-mat over and out 🚀
+bibli-o-mat over and out 🚀
 
 P.S.: Bitte nicht auf die Mail antworten, ich
 habe kein Postfach und den Sicherheitscheck 

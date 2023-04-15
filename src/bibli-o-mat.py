@@ -14,14 +14,21 @@ from send_mail import SendMail
 
 console = Console()
 app = typer.Typer()
+
 ch = CredentialHelper()
 lm = None
+user_id = None
+user_mail = None
 db = TinyDB('db.json').table('history')
 
 
-def setup(user_id: str):
+def setup(user_name: str):
     global lm
+    global user_id
+    global user_mail
+    user_id = ch.get_user_id_by_name(user_name)
     credentials = ch.get_credentials(user_id)
+    user_mail = credentials['mail']
     lm = MetropolLibrary(credentials['id'], credentials['token'])
 
 
@@ -39,10 +46,8 @@ def list_users():
 
 
 @app.command()
-def list_media(name: str = typer.Argument(..., envvar="USER_NAME")):
-    user_id = ch.get_user_id_by_name(name)
-    setup(user_id)
-
+def list_media(user_name: str = typer.Argument(..., envvar="USER_NAME")):
+    setup(user_name)
     lent_media = lm.get_lent_media()
 
     db.insert({'user_id': user_id, 'lent_media': lent_media, 'timestamp': str(time.time())})
@@ -54,8 +59,8 @@ def list_media(name: str = typer.Argument(..., envvar="USER_NAME")):
 
 
 @app.command()
-def renewable_media(user_id: str = typer.Argument(..., envvar="USER_ID")):
-    setup(user_id)
+def renewable_media(user_name: str = typer.Argument(..., envvar="USER_NAME")):
+    setup(user_name)
     renewable_media = lm.get_renewable_media()
     if not renewable_media:
         print("No renewable media found.")
@@ -68,8 +73,8 @@ def renewable_media(user_id: str = typer.Argument(..., envvar="USER_ID")):
 
 
 @app.command()
-def get_due_media():
-    setup()
+def get_due_media(user_name: str = typer.Argument(..., envvar="USER_NAME")):
+    setup(user_name)
     due_media = lm.get_due_media()
     if not due_media:
         print("No due media found.")
@@ -90,14 +95,27 @@ def renew_media():
         return
     lm.renew_media(renewable_media)
     print("Renewed media, sending mail...")
+    sm = SendMail(api_token)
 
 
 @app.command()
-def send_mail(api_token: str = typer.Argument(..., envvar="MAILTRAP_API_TOKEN")):
-    setup()
+def get_account_info(user_name: str = typer.Argument(..., envvar="USER_NAME")):
+    # TODO: Add some functionality arround this
+    setup(user_name)
+    account_info = lm.get_account_info()
+    print(account_info)
+
+
+@app.command()
+def test_mail(
+    api_token: str = typer.Argument(..., envvar="MAILTRAP_API_TOKEN"), 
+    user_name: str = typer.Argument(..., envvar="USER_NAME")
+    ):
+    
+    setup(user_name)
     mediums = lm.get_renewable_media()
     sm = SendMail(api_token)
-    sm.send_mail('jd.georgens@gmail.com', mediums)
+    sm.send_mail(user_mail, mediums)
 
 
 if __name__ == "__main__":
