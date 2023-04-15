@@ -87,20 +87,25 @@ def get_due_media(user_name: str = typer.Argument(..., envvar="USER_NAME")):
     
 
 @app.command()
-def renew_media():
-    setup()
+def renew_media(
+    api_token: str = typer.Argument(..., envvar="MAILTRAP_API_TOKEN"), 
+    user_name: str = typer.Argument(..., envvar="USER_NAME")):
+    setup(user_name)
     renewable_media = lm.get_renewable_media()
     if not renewable_media:
         print("No renewable media found.")
         return
-    lm.renew_media(renewable_media)
+
+    renewed = lm.renew_media(renewable_media)
     print("Renewed media, sending mail...")
     sm = SendMail(api_token)
+    sm.send_mail(user_mail, renewed, lm.get_account_info())
+    print ('Done')
 
 
 @app.command()
 def get_account_info(user_name: str = typer.Argument(..., envvar="USER_NAME")):
-    # TODO: Add some functionality arround this
+    # TODO: Add some functionality around this
     setup(user_name)
     account_info = lm.get_account_info()
     print(account_info)
@@ -114,8 +119,10 @@ def test_mail(
     
     setup(user_name)
     mediums = lm.get_renewable_media()
+    #mediums = lm.get_lent_media()
+    account_info = lm.get_account_info()
     sm = SendMail(api_token)
-    sm.send_mail(user_mail, mediums)
+    sm.send_mail(user_mail, mediums, account_info)
 
 
 if __name__ == "__main__":
