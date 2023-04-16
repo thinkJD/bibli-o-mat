@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import typer
 import json
 import time
@@ -8,9 +6,9 @@ from tinydb import TinyDB, Query
 from rich.console import Console
 from rich.table import Table
 from rich import print
-from credential_helper import CredentialHelper
-from metropol_library import MetropolLibrary
-from send_mail import SendMail
+from .credential_helper import CredentialHelper
+from .metropol_library import MetropolLibrary
+from .send_mail import SendMail
 
 
 console = Console()
@@ -104,14 +102,14 @@ def renew(user_name: str = typer.Option(..., prompt=True)):
     setup(user_name)
     renewable_media = lm.get_renewable_media()
     if not renewable_media:
-        print("No renewable media found.")
+        console.print("No renewable mediums found.")
         return
 
     renewed = lm.renew_media(renewable_media, count=1)
-    print("Renewed media, sending mail...")
+    console.print("Mediums renewed, sending mail...")
     sm = SendMail(MAILTRAP_API_TOKEN)
     sm.send_mail(user_mail, renewed, lm.get_account_info())
-    print ('Done')
+    console.print('Done')
 
 
 @app.command()
@@ -119,7 +117,3 @@ def account_info(user_name: str = typer.Option(..., prompt=True)):
     setup(user_name)
     account_info = lm.get_account_info()
     print(account_info)
-
-
-if __name__ == "__main__":
-    app()

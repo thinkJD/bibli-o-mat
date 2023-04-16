@@ -50,15 +50,25 @@ class MetropolLibrary():
 
 
     def renew_media(self, mediums:list(), count:int=None):
+        """_summary_
+
+        Args:
+            mediums (list): list of media to renew
+            count (int, optional): If set, pick only the first $count items from mediums. Defaults to None.
+
+        Returns:
+            _type_: list of renewed media
+        """
         renewed_media = list()
         if count:
             mediums = mediums[:count]
         for media in mediums:
+            # renew media
             request_data = {'libraryId': self.library_id,
                             'recordId': media['prolongData'],
                             'steps':[{"actionId":0}]}
             response = requests.post(self.renew_url, headers=self.request_headers, json=request_data)
-            print('got results, try to confirm')
+            # confirm request
             request_data['steps'].append({"actionId":2})  # actionId 2 "ok"
             response = requests.post(self.renew_url, headers=self.request_headers, json=request_data)
             if response.status_code == 200:
