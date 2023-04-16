@@ -35,11 +35,21 @@ def setup(user_name: str):
 
 @app.command()
 def add_user(name:str, mail:str, id: str, password: str):
+    """Add a new user to bibli-o-mat.
+
+    Args:
+        name (str): Name of the user use unique names.
+        mail (str): email address of the user.
+        id (str): Library card number.
+        password (str): passwort of the user. Defaults to the card owners birthdate.
+    """
     ch.add_user(name, mail, id, password)
 
 
 @app.command()
 def list_users():
+    """list all bibli-o-mat users.
+    """
     table = Table('Name', 'Email', 'ID')
     for user in ch.get_credentials():
         table.add_row(user['name'], user['mail'], user['id'])
@@ -47,13 +57,13 @@ def list_users():
 
 
 @app.command()
-def user_token_refresh(card_number:str):
-    ch.refresh_token(card_number)
-    console.print(f"Refreshed token for {card_number}")
-
-
-@app.command()
-def list_lent(user_name: str = typer.Option(..., prompt=True)):
+def list_lent(user_name: str):
+    """List all lent media of a user. There is also an indicator if the medium
+    is renewable.
+       
+       Args:
+            user_name (str): Name of the user (the first parameter of add-user)
+    """
     setup(user_name)
     lent_media = lm.get_lent_media()
 
@@ -70,7 +80,13 @@ def list_lent(user_name: str = typer.Option(..., prompt=True)):
 
 
 @app.command()
-def list_renewable(user_name: str = typer.Option(..., prompt=True)):
+def list_renewable(user_name: str):
+    """List renewable media of a user. A medium is for example not renewable
+    if it is already renewed 3 times.
+
+    Args:
+        user_name (str): Name of the user (the first parameter of add-user)
+    """
     setup(user_name)
     renewable_media = lm.get_renewable_media()
     if not renewable_media:
@@ -84,7 +100,13 @@ def list_renewable(user_name: str = typer.Option(..., prompt=True)):
 
 
 @app.command()
-def list_due(user_name: str = typer.Option(..., prompt=True)):
+def list_due(user_name: str ):
+    """List due media of a user. A medium is due if it is three days before 
+    the deadline.
+
+    Args:
+        user_name (str): Name of the user (the first parameter of add-user)
+    """
     setup(user_name)
     due_media = lm.get_due_media()
     if not due_media:
@@ -98,22 +120,20 @@ def list_due(user_name: str = typer.Option(..., prompt=True)):
     
 
 @app.command()
-def renew(user_name: str = typer.Option(..., prompt=True)):
+def renew(user_name: str):
+    """Auto renew all due renewable media of a user and send a info mail.
+
+    Args:
+        user_name (str): Name of the user (the first parameter of add-user)
+    """
     setup(user_name)
     renewable_media = lm.get_renewable_media()
     if not renewable_media:
-        console.print("No renewable mediums found.")
+        console.print("No renewable media found.")
         return
 
     renewed = lm.renew_media(renewable_media, count=1)
-    console.print("Mediums renewed, sending mail...")
+    console.print("media renewed, sending mail...")
     sm = SendMail(MAILTRAP_API_TOKEN)
     sm.send_mail(user_mail, renewed, lm.get_account_info())
     console.print('Done')
-
-
-@app.command()
-def account_info(user_name: str = typer.Option(..., prompt=True)):
-    setup(user_name)
-    account_info = lm.get_account_info()
-    print(account_info)

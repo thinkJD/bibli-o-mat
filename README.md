@@ -15,7 +15,6 @@ Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Server zu betr
   https://metropol-mediensuche.de/libraries
 * Einen Mailtrap account mit eigener Domain und bestandenem DKIM check
 
-
 # CLI
 
 **Usage**:
@@ -32,29 +31,22 @@ $ [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* `account-info`
-* `add-user`
-* `list-due`
-* `list-lent`
-* `list-renewable`
-* `list-users`
-* `renew`
-* `user-token-refresh`
-
-## `account-info`
-
-**Usage**:
-
-```console
-$ account-info [OPTIONS]
-```
-
-**Options**:
-
-* `--user-name TEXT`: [required]
-* `--help`: Show this message and exit.
+* `add-user`: Add a new user to bibli-o-mat.
+* `list-due`: List due media of a user.
+* `list-lent`: List all lent media of a user.
+* `list-renewable`: List renewable media of a user.
+* `list-users`: list all bibli-o-mat users.
+* `renew`: Auto renew all due renewable media of a...
 
 ## `add-user`
+
+Add a new user to bibli-o-mat.
+
+Args:
+    name (str): Name of the user use unique names.
+    mail (str): email address of the user.
+    id (str): Library card number.
+    password (str): passwort of the user. Defaults to the card owners birthdate.
 
 **Usage**:
 
@@ -75,44 +67,74 @@ $ add-user [OPTIONS] NAME MAIL ID PASSWORD
 
 ## `list-due`
 
+List due media of a user. A medium is due if it is three days before 
+the deadline.
+
+Args:
+    user_name (str): Name of the user (the first parameter of add-user)
+
 **Usage**:
 
 ```console
-$ list-due [OPTIONS]
+$ list-due [OPTIONS] USER_NAME
 ```
+
+**Arguments**:
+
+* `USER_NAME`: [required]
 
 **Options**:
 
-* `--user-name TEXT`: [required]
 * `--help`: Show this message and exit.
 
 ## `list-lent`
 
+List all lent media of a user. There is also an indicator if the medium
+is renewable.
+   
+   Args:
+        user_name (str): Name of the user (the first parameter of add-user)
+
 **Usage**:
 
 ```console
-$ list-lent [OPTIONS]
+$ list-lent [OPTIONS] USER_NAME
 ```
+
+**Arguments**:
+
+* `USER_NAME`: [required]
 
 **Options**:
 
-* `--user-name TEXT`: [required]
 * `--help`: Show this message and exit.
 
 ## `list-renewable`
 
+List renewable media of a user. A medium is for example not renewable
+if it is already renewed 3 times.
+
+Args:
+    user_name (str): Name of the user (the first parameter of add-user)
+
 **Usage**:
 
 ```console
-$ list-renewable [OPTIONS]
+$ list-renewable [OPTIONS] USER_NAME
 ```
+
+**Arguments**:
+
+* `USER_NAME`: [required]
 
 **Options**:
 
-* `--user-name TEXT`: [required]
 * `--help`: Show this message and exit.
 
 ## `list-users`
+
+list all bibli-o-mat users.
+    
 
 **Usage**:
 
@@ -126,28 +148,20 @@ $ list-users [OPTIONS]
 
 ## `renew`
 
-**Usage**:
+Auto renew all due renewable media of a user and send a info mail.
 
-```console
-$ renew [OPTIONS]
-```
-
-**Options**:
-
-* `--user-name TEXT`: [required]
-* `--help`: Show this message and exit.
-
-## `user-token-refresh`
+Args:
+    user_name (str): Name of the user (the first parameter of add-user)
 
 **Usage**:
 
 ```console
-$ user-token-refresh [OPTIONS] CARD_NUMBER
+$ renew [OPTIONS] USER_NAME
 ```
 
 **Arguments**:
 
-* `CARD_NUMBER`: [required]
+* `USER_NAME`: [required]
 
 **Options**:
 
