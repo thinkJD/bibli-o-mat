@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "bibli-o-mat"
+version = "0.0.2"
+description = ""
+authors = ["thinkJD <jd.georgens@gmail.com>"]
+readme = "README.md"
+packages = [{include = "bibli_o_mat"}]
+
+[tool.poetry.scripts]
+bibli-o-mat = "bibli_o_mat.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.28.2"
+typer = "^0.7.0"
+tinydb = "^4.7.1"
+mailtrap = "^2.0.0"
+rich = "^13.3.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
