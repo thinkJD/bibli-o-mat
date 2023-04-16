@@ -16,3 +16,140 @@ Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Server zu betr
 * Einen Mailtrap account mit eigener Domain und bestandenem DKIM check
 
 
+# CLI
+
+**Usage**:
+
+```console
+$ [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--install-completion`: Install completion for the current shell.
+* `--show-completion`: Show completion for the current shell, to copy it or customize the installation.
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `account-info`
+* `add-user`
+* `list-due`
+* `list-lent`
+* `list-renewable`
+* `list-users`
+* `renew`
+* `user-token-refresh`
+
+## `account-info`
+
+**Usage**:
+
+```console
+$ account-info [OPTIONS]
+```
+
+**Options**:
+
+* `--user-name TEXT`: [required]
+* `--help`: Show this message and exit.
+
+## `add-user`
+
+**Usage**:
+
+```console
+$ add-user [OPTIONS] NAME MAIL ID PASSWORD
+```
+
+**Arguments**:
+
+* `NAME`: [required]
+* `MAIL`: [required]
+* `ID`: [required]
+* `PASSWORD`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+## `list-due`
+
+**Usage**:
+
+```console
+$ list-due [OPTIONS]
+```
+
+**Options**:
+
+* `--user-name TEXT`: [required]
+* `--help`: Show this message and exit.
+
+## `list-lent`
+
+**Usage**:
+
+```console
+$ list-lent [OPTIONS]
+```
+
+**Options**:
+
+* `--user-name TEXT`: [required]
+* `--help`: Show this message and exit.
+
+## `list-renewable`
+
+**Usage**:
+
+```console
+$ list-renewable [OPTIONS]
+```
+
+**Options**:
+
+* `--user-name TEXT`: [required]
+* `--help`: Show this message and exit.
+
+## `list-users`
+
+**Usage**:
+
+```console
+$ list-users [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+## `renew`
+
+**Usage**:
+
+```console
+$ renew [OPTIONS]
+```
+
+**Options**:
+
+* `--user-name TEXT`: [required]
+* `--help`: Show this message and exit.
+
+## `user-token-refresh`
+
+**Usage**:
+
+```console
+$ user-token-refresh [OPTIONS] CARD_NUMBER
+```
+
+**Arguments**:
+
+* `CARD_NUMBER`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
