@@ -1,12 +1,13 @@
 FROM python:3.11-slim as base
 
-RUN pip install pipenv
-COPY Pipfile Pipfile.lock ./
-RUN pipenv install --system --deploy
+RUN pip install poetry
 
-FROM base as release
+RUN mkdir /usr/app
+WORKDIR /usr/app
 
-COPY src/* /usr/app/
+COPY . .
+RUN poetry install --no-dev
 
-ENTRYPOINT [ "/usr/app/bibli-o-mat.py" ]
+ENTRYPOINT [ "poetry", "run", "bibli-o-mat" ]
 
+CMD [ "--help" ]
