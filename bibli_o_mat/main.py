@@ -34,7 +34,7 @@ def setup(user_name: str):
 
 
 @app.command()
-def add_user(name:str, mail:str, id: str, password: str):
+def add_user(name: str, mail: str, id: str, password: str):
     """Add a new user to bibli-o-mat.
 
     Args:
@@ -60,14 +60,15 @@ def list_users():
 def list_lent(user_name: str):
     """List all lent media of a user. There is also an indicator if the medium
     is renewable.
-       
+
        Args:
             user_name (str): Name of the user (the first parameter of add-user)
     """
     setup(user_name)
     lent_media = lm.get_lent_media()
 
-    db.insert({'user_id': user_id, 'lent_media': lent_media, 'timestamp': str(time.time())})
+    db.insert({'user_id': user_id, 'lent_media': lent_media,
+              'timestamp': str(time.time())})
 
     table = Table("Title", "Author", "Due Date")
     for media in lent_media:
@@ -92,7 +93,7 @@ def list_renewable(user_name: str):
     if not renewable_media:
         print("No renewable media found.")
         return
-    
+
     table = Table("Title", "Author", "Due Date")
     for media in renewable_media:
         table.add_row(media['title'], media['author'], media['deadline'])
@@ -100,7 +101,7 @@ def list_renewable(user_name: str):
 
 
 @app.command()
-def list_due(user_name: str ):
+def list_due(user_name: str):
     """List due media of a user. A medium is due if it is three days before 
     the deadline.
 
@@ -112,12 +113,12 @@ def list_due(user_name: str ):
     if not due_media:
         console.print("No due media found.")
         return
-    
+
     table = Table("Title", "Author", "Due Date")
     for media in due_media:
         table.add_row(media['title'], media['author'], media['deadline'])
     console.print(table)
-    
+
 
 @app.command()
 def renew(user_name: str):
