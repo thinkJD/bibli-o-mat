@@ -34,6 +34,9 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ghcr.io/thinkJD/bibli-o-mat
+          tags: |
+            type=ref,event=branch
+            type=ref,event=branch,suffix=-${{ github.run_number }}
 
       - name: Build and push
         uses: docker/build-push-action@v4
