@@ -8,7 +8,7 @@ Der bibli-o-mat löst dieses Problem.
 
 Drei Tage vor dem Fälligkeitsdatum (das ist ein Tag bevor die Bücherei sich meldet) werden alle fälligen Medien verlängert. Im anschluss wird eine Mail mit einer Auflistung der verlängerten Medien sowie einigen weiteren Infos an die hinterlegte email Adresse geschickt. 
 
-Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Server zu betreiben, kann der bibli-o-mat auch mit mehreren Accounts umgehen. Dann sind freunde und bekannte auch gleich mit abgedeckt.
+Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Server zu betreiben, kann der bibli-o-mat mehrere accounts verwalten. So sind freunde und bekannte auch gleich mit dabei.
 
 ## Was brauche ich dafür?
 * Einen Bibliotheksausweis bei einer der folgenden Büchereien:  
