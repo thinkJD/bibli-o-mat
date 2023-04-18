@@ -9,13 +9,13 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
 
       - name: autopep8
         id: autopep8
-        uses: peter-evans/autopep8@v3
+        uses: peter-evans/autopep8@v2
         with:
           args: --exit-code --recursive --in-place --aggressive --aggressive .
 
@@ -35,6 +35,7 @@ jobs:
           labels: autopep8, automated pr
           reviewers: peter-evans
           branch: ${{ steps.vars.outputs.branch-name }}
+          
       - name: Fail if autopep8 made changes
         if: steps.autopep8.outputs.exit-code == 2
         run: exit 1
