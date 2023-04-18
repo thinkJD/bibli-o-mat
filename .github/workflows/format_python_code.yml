@@ -5,6 +5,9 @@ jobs:
     # Check if the PR is not raised by this workflow and is not from a fork
     if: startsWith(github.head_ref, 'autopep8-patches') == false && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v2
         with:
