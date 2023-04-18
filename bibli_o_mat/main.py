@@ -102,7 +102,7 @@ def list_renewable(user_name: str):
 
 @app.command()
 def list_due(user_name: str):
-    """List due media of a user. A medium is due if it is three days before 
+    """List due media of a user. A medium is due if it is three days before
     the deadline.
 
     Args:
