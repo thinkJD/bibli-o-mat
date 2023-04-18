@@ -21,8 +21,9 @@ class MetropolLibrary():
     def get_account_info(self):
         try:
             r = requests.get(self.info_url, headers=self.request_headers)
-            account_info = {'card_valid': r.json()['validUntil'], 'fees': r.json()[
-                'pendingFees']}
+            account_info = {
+                'card_valid': r.json()['validUntil'],
+                'fees': r.json()['pendingFees']}
         except HTTPError as http_err:
             print(f'HTTP error occurred: {http_err}')
         return account_info
@@ -64,11 +65,15 @@ class MetropolLibrary():
                             'recordId': media['prolongData'],
                             'steps': [{"actionId": 0}]}
             response = requests.post(
-                self.renew_url, headers=self.request_headers, json=request_data)
+                self.renew_url,
+                headers=self.request_headers,
+                json=request_data)
             # confirm request
             request_data['steps'].append({"actionId": 2})  # actionId 2 "ok"
             response = requests.post(
-                self.renew_url, headers=self.request_headers, json=request_data)
+                self.renew_url,
+                headers=self.request_headers,
+                json=request_data)
             if response.status_code == 200:
                 renewed_media.append(media)
                 print(f"Renewed {media['title']}")
