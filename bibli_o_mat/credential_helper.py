@@ -45,5 +45,9 @@ class CredentialHelper():
 
     def add_user(self, name, mail, id, password):
         token = self.get_token(card_number=user_id, password=password)
-        self.db.insert({'name': name, 'mail': mail, 'id': id, 'password': password,
-                       'token': token, 'last_refresh': str(time.time())})
+        self.db.insert({'name': name,
+                        'mail': mail,
+                        'id': id,
+                        'password': password,
+                        'token': token,
+                        'last_refresh': str(time.time())})
