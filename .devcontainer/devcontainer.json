@@ -9,7 +9,7 @@
 		"ghcr.io/devcontainers-contrib/features/poetry:2": {},
 		"ghcr.io/rio/features/chezmoi:1": {},
 		"ghcr.io/flexwie/devcontainer-features/op:1": {}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -18,7 +18,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+	"postCreateCommand": "poetry install --all-extras"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
