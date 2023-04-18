@@ -9,7 +9,7 @@ class SendMail():
             "Content-Type": "application/json"
         }
 
-    def render_mail(self, to_address: str, mediums: list, account_info: dict):
+    def render_mail(self, to_address: str, mediums: list, account_info: dict, additional_text: str = ""):
         # build table
         table = ""
         for medium in mediums:
@@ -31,18 +31,19 @@ Mit Freude habe ich folgende Medien verlängert:
 
 {table}
 Du musst nicht zur Bibliothek und musst keine
-{cost_saved}€ Säumnisgebühr zahlen 🤑.
+{cost_saved}€ zahlen 🤑.
 
 Hier noch einige infos zu deinem Konto:
 Karte gültig bis: {account_info['card_valid']}
 Angefallene Kosten: {account_info['fees']}
 
-bibli-o-mat over and out 🚀
+bibli-o-mat over and out 🎤🫳🏻
 
-P.S.: Bitte nicht auf die Mail antworten, ich
-habe kein Postfach und den Sicherheitscheck
-für die Sendedomain nur haarscharf bestanden.
-🎤🫳🏻
+P.S.: Bitte nicht auf die mail antworten. Fragen
+und Anregungen am besten hier hinterlassen: 
+https://github.com/thinkJD/bibli-o-mat/issues
+
+{additional_text}
 """,
         )
         return mail
