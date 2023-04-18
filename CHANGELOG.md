@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/thinkJD/bibli-o-mat/compare/v0.1.0...v0.1.1) (2023-04-18)
+
+
+### Bug Fixes
+
+* user-add command ([#14](https://github.com/thinkJD/bibli-o-mat/issues/14)) ([53eada0](https://github.com/thinkJD/bibli-o-mat/commit/53eada09ce32b3b682e7373577d739f01ddf140d))
+
 ## 0.1.0 (2023-04-18)
 
 
