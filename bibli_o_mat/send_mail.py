@@ -9,7 +9,12 @@ class SendMail():
             "Content-Type": "application/json"
         }
 
-    def render_mail(self, to_address: str, mediums: list, account_info: dict, additional_text: str = ""):
+    def render_mail(
+            self,
+            to_address: str,
+            mediums: list,
+            account_info: dict,
+            additional_text: str = ""):
         # build table
         table = ""
         for medium in mediums:
@@ -40,7 +45,7 @@ Angefallene Kosten: {account_info['fees']}
 bibli-o-mat over and out 🎤🫳🏻
 
 P.S.: Bitte nicht auf die mail antworten. Fragen
-und Anregungen am besten hier hinterlassen: 
+und Anregungen am besten hier hinterlassen:
 https://github.com/thinkJD/bibli-o-mat/issues
 
 {additional_text}
