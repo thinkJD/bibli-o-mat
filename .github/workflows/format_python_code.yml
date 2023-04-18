@@ -19,12 +19,6 @@ jobs:
         with:
           args: --exit-code --recursive --in-place --aggressive --aggressive .
 
-      - name: Set autopep8 branch name
-        id: vars
-        run: |
-          branch-name="autopep8-patches/${{ github.head_ref }}"
-          echo "branch-name=$branch-name" >> $GITHUB_OUTPUT
-
       - name: Create Pull Request
         if: steps.autopep8.outputs.exit-code == 2
         uses: peter-evans/create-pull-request@v3
@@ -34,8 +28,8 @@ jobs:
           body: This is an auto-generated PR with fixes by autopep8.
           labels: autopep8, automated pr
           reviewers: peter-evans
-          branch: ${{ steps.vars.outputs.branch-name }}
-          
+          branch: "autopep8-patches/${{ github.head_ref }}"
+
       - name: Fail if autopep8 made changes
         if: steps.autopep8.outputs.exit-code == 2
         run: exit 1
