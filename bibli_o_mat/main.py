@@ -14,13 +14,17 @@ from .send_mail import SendMail
 console = Console()
 app = typer.Typer()
 
-MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN')
+MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN', None)
 
-ch = CredentialHelper()
+if not os.path.exists('data'):
+    os.mkdir('data')
+db_path = os.path.join('data', 'db.json')
+
+ch = CredentialHelper(db_path)
 lm = None
 user_id = None
 user_mail = None
-db = TinyDB('db.json').table('history')
+db = TinyDB(db_path).table('history')
 
 
 def setup(user_name: str):
