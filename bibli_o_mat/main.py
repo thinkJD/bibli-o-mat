@@ -148,6 +148,7 @@ def renew(user_name: str):
     sm.send_mail(user_mail, renewed, lm.get_account_info())
     console.print('Done')
 
+
 @app.command()
 def test_semantic_kernel(user_name: str):
     setup(user_name)
