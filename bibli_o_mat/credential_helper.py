@@ -4,8 +4,8 @@ from tinydb import TinyDB, Query
 
 
 class CredentialHelper():
-    def __init__(self):
-        self.db = TinyDB('db.json').table('credentials')
+    def __init__(self, db_path: str):
+        self.db = TinyDB(db_path).table('credentials')
 
     def get_token(self, card_number: str, password: str, lib_id: int = 8726):
         try:

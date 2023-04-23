@@ -6,8 +6,8 @@ vars:
   GREETING: Hello, World!
 
 tasks:
-  default:
+  run:
     cmds:
-      - echo "{{.GREETING}}"
-    silent: true
+      - op run --env-file="./.env" -- bibli-o-mat 
+
   docs: typer bibli_o_mat.main utils docs

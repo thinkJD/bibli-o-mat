@@ -2,25 +2,34 @@ import typer
 import json
 import time
 import os
+
 from tinydb import TinyDB, Query
 from rich.console import Console
 from rich.table import Table
 from rich import print
+
 from .credential_helper import CredentialHelper
 from .metropol_library import MetropolLibrary
 from .send_mail import SendMail
+from .semanic_kernel import SemanticKernel
 
+
+MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN', None)
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', None)
+OPENAI_ORG_ID = os.getenv('OPENAI_ORG_ID', None)
 
 console = Console()
 app = typer.Typer()
 
-MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN')
+if not os.path.exists('data'):
+    os.mkdir('data')
+db_path = os.path.join('data', 'db.json')
 
-ch = CredentialHelper()
+ch = CredentialHelper(db_path)
 lm = None
 user_id = None
 user_mail = None
-db = TinyDB('db.json').table('history')
+db = TinyDB(db_path).table('history')
 
 
 def setup(user_name: str):
@@ -138,3 +147,13 @@ def renew(user_name: str):
     sm = SendMail(MAILTRAP_API_TOKEN)
     sm.send_mail(user_mail, renewed, lm.get_account_info())
     console.print('Done')
+
+
+@app.command()
+def test_semantic_kernel(user_name: str):
+    setup(user_name)
+    sk = SemanticKernel(OPENAI_API_KEY, OPENAI_ORG_ID)
+    book_list = ""
+    for medium in lm.get_lent_media():
+        book_list += f"{medium['title']} \n"
+    console.print(sk.get_short_story(book_list))
