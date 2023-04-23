@@ -2,22 +2,24 @@ import typer
 import json
 import time
 import os
+
 from tinydb import TinyDB, Query
 from rich.console import Console
 from rich.table import Table
 from rich import print
+
 from .credential_helper import CredentialHelper
 from .metropol_library import MetropolLibrary
 from .send_mail import SendMail
-from .brain import SemanticKernel
+from .semanic_kernel import SemanticKernel
 
-
-console = Console()
-app = typer.Typer()
 
 MAILTRAP_API_TOKEN = os.getenv('MAILTRAP_API_TOKEN', None)
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', None)
 OPENAI_ORG_ID = os.getenv('OPENAI_ORG_ID', None)
+
+console = Console()
+app = typer.Typer()
 
 if not os.path.exists('data'):
     os.mkdir('data')
@@ -147,8 +149,8 @@ def renew(user_name: str):
     console.print('Done')
 
 @app.command()
-def test():
-    setup(user_name="Fynn")
+def test_semantic_kernel(user_name: str):
+    setup(user_name)
     sk = SemanticKernel(OPENAI_API_KEY, OPENAI_ORG_ID)
     book_list = ""
     for medium in lm.get_lent_media():
