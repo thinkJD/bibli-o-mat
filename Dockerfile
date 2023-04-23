@@ -2,7 +2,7 @@ FROM python:3.11-slim as base
 
 RUN pip install poetry
 
-RUN mkdir /usr/app
+RUN mkdir /usr/app /usr/app/data
 WORKDIR /usr/app
 
 COPY . .
