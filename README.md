@@ -1,21 +1,25 @@
 # bibli-o-mat 🤖
 
-Mit den Kindern sind wir ständig in der Bücherei. Wenn die ausgeliehenen Medien fällig werden, bekommt man eine Mail und hat dann 2 Tage Zeit die Medien zurückzugeben oder zu verlängern. Da ich es einfach nicht schaffe eins von beidem zu tun fallen ständig Gebühren an.
+Mit den Kindern sind wir ständig in der Bücherei. Wenn die ausgeliehenen Medien fällig werden bekommt man eine Mail und hat dann 2 Tage Zeit die Medien zurückzugeben oder zu verlängern. Da ich es einfach nicht schaffe eins von beidem zu tun fallen ständig Gebühren an.
 
 Der bibli-o-mat löst dieses Problem.
 
 ## Wie denn?
 
-Drei Tage vor dem Fälligkeitsdatum (das ist ein Tag bevor die Bücherei sich meldet) werden alle fälligen Medien verlängert. Im anschluss wird eine Mail mit einer Auflistung der verlängerten Medien sowie einigen weiteren Infos an die hinterlegte email Adresse geschickt. 
+Drei Tage vor dem Fälligkeitsdatum (das ist ein Tag bevor die Bücherei sich meldet) werden alle fälligen Medien verlängert. Im Anschluss wird eine Auflistung der verlängerten Medien sowie einigen weiteren Infos an die hinterlegte Email Adresse geschickt.
 
-Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Server zu betreiben, kann der bibli-o-mat mehrere accounts verwalten. So sind freunde und bekannte auch gleich mit dabei.
+Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Rechner zu betreiben auf dem bibli-o-mat regelmäßig läuft, kann der bibli-o-mat mehrere Accounts gleichzeitig verwalten. So sind Freunde und Bekannte auch gleich mit dabei.
 
 ## Was brauche ich dafür?
 * Einen Bibliotheksausweis bei einer der folgenden Büchereien:  
   https://metropol-mediensuche.de/libraries
-* Einen Mailtrap account mit eigener Domain und bestandenem DKIM check
+* Einen Mailtrap Account mit eigener Domain und bestandenem DKIM Check
 
 # CLI
+
+bibli-o-mat ist ein Kommandozeilentool und muss regelmäßig aufgerufen werden um Fälligkeiten zu überprüfen oder Bücher zu verlängern (bspw. via Cronjob).
+
+In den folgenden Beispielen wurde die Shell Completion genutzt – diese kannst Du mit `bibli-o-mat --install-completion` initialisieren.
 
 **Usage**:
 
