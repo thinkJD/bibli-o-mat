@@ -6,6 +6,7 @@ from tinydb import TinyDB, Query
 from rich.console import Console
 from rich.table import Table
 from rich import print
+from typing import List
 from .credential_helper import CredentialHelper
 from .metropol_library import MetropolLibrary
 from .send_mail import SendMail
@@ -61,27 +62,30 @@ def list_users():
 
 
 @app.command()
-def list_lent(user_name: str):
+def list_lent(user_names: List[str]):
     """List all lent media of a user. There is also an indicator if the medium
     is renewable.
 
        Args:
             user_name (str): Name of the user (the first parameter of add-user)
     """
-    setup(user_name)
-    lent_media = lm.get_lent_media()
+    for user in user_names:
+        console.print(f'{user}s lent media:')
+        
+        setup(user)
+        lent_media = lm.get_lent_media()
 
-    db.insert({'user_id': user_id, 'lent_media': lent_media,
-              'timestamp': str(time.time())})
+        db.insert({'user_id': user_id, 'lent_media': lent_media,
+                'timestamp': str(time.time())})
 
-    table = Table("Title", "Author", "Due Date")
-    for media in lent_media:
-        if media['renewable']:
-            deadline = f'{media["deadline"]} 🚀'
-        else:
-            deadline = media["deadline"]
-        table.add_row(media['title'], media['author'], deadline)
-    console.print(table)
+        table = Table("Title", "Author", "Due Date")
+        for media in lent_media:
+            if media['renewable']:
+                deadline = f'{media["deadline"]} 🚀'
+            else:
+                deadline = media["deadline"]
+            table.add_row(media['title'], media['author'], deadline)
+        console.print(table)
 
 
 @app.command()
@@ -125,20 +129,21 @@ def list_due(user_name: str):
 
 
 @app.command()
-def renew(user_name: str):
-    """Auto renew all due renewable media of a user and send a info mail.
+def renew(user_names: List[str]):
+    """Auto renew all due renewable media of all and send a info mail.
 
     Args:
         user_name (str): Name of the user (the first parameter of add-user)
     """
-    setup(user_name)
-    renewable_media = lm.get_renewable_media()
-    if not renewable_media:
-        console.print("No renewable media found.")
-        return
+    for user_name in user_names:
+        setup(user_name)
+        renewable_media = lm.get_renewable_media()
+        if not renewable_media:
+            console.print("No renewable media found.")
+            break
 
-    renewed = lm.renew_media(renewable_media, count=1)
-    console.print("media renewed, sending mail...")
-    sm = SendMail(MAILTRAP_API_TOKEN)
-    sm.send_mail(user_mail, renewed, lm.get_account_info())
-    console.print('Done')
+        renewed = lm.renew_media(renewable_media, count=1)
+        console.print("media renewed, sending mail...")
+        sm = SendMail(MAILTRAP_API_TOKEN)
+        sm.send_mail(user_mail, renewed, lm.get_account_info())
+        console.print('Done')
