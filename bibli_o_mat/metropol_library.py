@@ -68,6 +68,7 @@ class MetropolLibrary():
                 self.renew_url,
                 headers=self.request_headers,
                 json=request_data)
+            new_deadline = response.json()['details'][2]['text']
             # confirm request
             request_data['steps'].append({"actionId": 2})  # actionId 2 "ok"
             response = requests.post(
@@ -75,6 +76,7 @@ class MetropolLibrary():
                 headers=self.request_headers,
                 json=request_data)
             if response.status_code == 200:
+                media['deadline'] = new_deadline
                 renewed_media.append(media)
                 print(f"Renewed {media['title']}")
         return renewed_media
