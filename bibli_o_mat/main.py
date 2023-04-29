@@ -71,12 +71,12 @@ def list_lent(user_names: List[str]):
     """
     for user in user_names:
         console.print(f'{user}s lent media:')
-        
+
         setup(user)
         lent_media = lm.get_lent_media()
 
         db.insert({'user_id': user_id, 'lent_media': lent_media,
-                'timestamp': str(time.time())})
+                   'timestamp': str(time.time())})
 
         table = Table("Title", "Author", "Due Date")
         for media in lent_media:
