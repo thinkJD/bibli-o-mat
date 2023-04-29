@@ -17,10 +17,6 @@ Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Rechner zu bet
 
 # CLI
 
-bibli-o-mat ist ein Kommandozeilentool und muss regelmäßig aufgerufen werden um Fälligkeiten zu überprüfen oder Bücher zu verlängern (bspw. via Cronjob).
-
-In den folgenden Beispielen wurde die Shell Completion genutzt – diese kannst Du mit `bibli-o-mat --install-completion` initialisieren.
-
 **Usage**:
 
 ```console
@@ -40,7 +36,7 @@ $ [OPTIONS] COMMAND [ARGS]...
 * `list-lent`: List all lent media of a user.
 * `list-renewable`: List renewable media of a user.
 * `list-users`: list all bibli-o-mat users.
-* `renew`: Auto renew all due renewable media of a...
+* `renew`: Auto renew all due renewable media of all...
 
 ## `add-user`
 
@@ -71,7 +67,7 @@ $ add-user [OPTIONS] NAME MAIL ID PASSWORD
 
 ## `list-due`
 
-List due media of a user. A medium is due if it is three days before 
+List due media of a user. A medium is due if it is three days before
 the deadline.
 
 Args:
@@ -95,19 +91,19 @@ $ list-due [OPTIONS] USER_NAME
 
 List all lent media of a user. There is also an indicator if the medium
 is renewable.
-   
+
    Args:
         user_name (str): Name of the user (the first parameter of add-user)
 
 **Usage**:
 
 ```console
-$ list-lent [OPTIONS] USER_NAME
+$ list-lent [OPTIONS] USER_NAMES...
 ```
 
 **Arguments**:
 
-* `USER_NAME`: [required]
+* `USER_NAMES...`: [required]
 
 **Options**:
 
@@ -152,7 +148,7 @@ $ list-users [OPTIONS]
 
 ## `renew`
 
-Auto renew all due renewable media of a user and send a info mail.
+Auto renew all due renewable media of all and send a info mail.
 
 Args:
     user_name (str): Name of the user (the first parameter of add-user)
@@ -160,12 +156,12 @@ Args:
 **Usage**:
 
 ```console
-$ renew [OPTIONS] USER_NAME
+$ renew [OPTIONS] USER_NAMES...
 ```
 
 **Arguments**:
 
-* `USER_NAME`: [required]
+* `USER_NAMES...`: [required]
 
 **Options**:
 
