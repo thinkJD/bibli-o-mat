@@ -39,9 +39,6 @@ Angefallene Kosten: {account_info['fees']}
 
 bibli-o-mat over and out 🚀
 
-P.S.: Bitte nicht auf die Mail antworten, ich
-habe kein Postfach und den Sicherheitscheck
-für die Sendedomain nur haarscharf bestanden.
 🎤🫳🏻
 """,
         )
