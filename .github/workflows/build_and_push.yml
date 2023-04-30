@@ -35,10 +35,10 @@ jobs:
         with:
           images: ghcr.io/thinkJD/bibli-o-mat
           tags: |
-            latest
             ${{ github.sha }}
-            ${{ github.ref }}-${{ github.run_number }}
-            type=semver,pattern={{version}},event=tag
+            type=ref,event=branch
+            type=ref,event=branch,suffix=-${{ github.run_number }}
+            type=semver,event=tag,pattern={{version}}
 
       - name: Build and push
         uses: docker/build-push-action@v4
