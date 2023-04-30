@@ -6,8 +6,4 @@ vars:
   GREETING: Hello, World!
 
 tasks:
-  default:
-    cmds:
-      - echo "{{.GREETING}}"
-    silent: true
   docs: typer bibli_o_mat.main utils docs
