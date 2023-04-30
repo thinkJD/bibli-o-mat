@@ -142,8 +142,8 @@ def renew(user_names: List[str]):
         if not renewable_media:
             console.print("No renewable media found.")
             continue
-        #renewed = lm.renew_media(renewable_media)
+        # renewed = lm.renew_media(renewable_media)
         console.print("media renewed, sending mail...")
         sm = SendMail(MAILTRAP_API_TOKEN)
-        #sm.send_mail(user_mail, renewed, lm.get_account_info())
+        # sm.send_mail(user_mail, renewed, lm.get_account_info())
         console.print('Done')
