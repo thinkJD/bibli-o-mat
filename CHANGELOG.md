@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/thinkJD/bibli-o-mat/compare/v0.2.0...v0.2.1) (2023-04-30)
+
+
+### Bug Fixes
+
+* Continue batch renew for each user in parameter list ([#33](https://github.com/thinkJD/bibli-o-mat/issues/33)) ([65c8ae5](https://github.com/thinkJD/bibli-o-mat/commit/65c8ae5a5f15173776ccbed3ab30f8f1ba072eca))
+
 ## [0.2.0](https://github.com/thinkJD/bibli-o-mat/compare/v0.1.1...v0.2.0) (2023-04-30)
 
 
