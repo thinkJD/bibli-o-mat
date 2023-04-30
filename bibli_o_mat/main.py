@@ -136,11 +136,12 @@ def renew(user_names: List[str]):
         user_name (str): Name of the user (the first parameter of add-user)
     """
     for user_name in user_names:
+        console.print(f'Renewing {user_name}s media...')
         setup(user_name)
         renewable_media = lm.get_due_media()
         if not renewable_media:
             console.print("No renewable media found.")
-            break
+            continue
         renewed = lm.renew_media(renewable_media)
         console.print("media renewed, sending mail...")
         sm = SendMail(MAILTRAP_API_TOKEN)
