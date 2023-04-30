@@ -1,15 +1,7 @@
 name: bibli-o-mat build
 
 on:
-  workflow_dispatch:
   push:
-    branches:
-      - 'main'
-    tags:
-      - 'v*'
-  pull_request:
-    branches:
-      - 'main'
 
 permissions:
   contents: read
