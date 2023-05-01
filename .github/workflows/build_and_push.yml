@@ -6,6 +6,8 @@ on:
       - '*'
     tags:
       - 'v*.*.*'
+  pull_request:
+
 
 permissions:
   contents: read
@@ -30,6 +32,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ghcr.io/thinkJD/bibli-o-mat
+          tags: |
+            type=ref,event=branch
+            type=ref,event=branch,suffix=-${{ github.run_number }}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
 
       - name: Build and push
         uses: docker/build-push-action@v4
