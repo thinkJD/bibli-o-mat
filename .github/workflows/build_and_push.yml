@@ -2,6 +2,10 @@ name: bibli-o-mat build
 
 on:
   push:
+    branches:
+      - '*'
+    tags:
+      - 'v*.*.*'
 
 permissions:
   contents: read
