@@ -165,14 +165,14 @@ files = [
 
 [[package]]
 name = "mailtrap"
-version = "2.0.0"
+version = "2.0.1"
 description = "Official mailtrap.io API client"
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "mailtrap-2.0.0-py3-none-any.whl", hash = "sha256:708cf4485b53cd22f0636fc94e8f033f7924dfac3db63802bc3efae1da6c3feb"},
-    {file = "mailtrap-2.0.0.tar.gz", hash = "sha256:cc8305ebd339b258a60b9cd0b8e4de6f33744f65d7fb15a1160a6904b6031a38"},
+    {file = "mailtrap-2.0.1-py3-none-any.whl", hash = "sha256:d03d6a9ca8ea9869acf75503028cbc993d77e0c1dbe6f66fdf12b23f5c5f9dc3"},
+    {file = "mailtrap-2.0.1.tar.gz", hash = "sha256:c043f06c46abebdb8e71547d04c228b9a3ac51172b91ff584374e0f9c01bf5f0"},
 ]
 
 [package.dependencies]
