@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.2](https://github.com/thinkJD/bibli-o-mat/compare/v0.2.1...v0.2.2) (2023-06-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency mailtrap to v2.0.1 ([#41](https://github.com/thinkJD/bibli-o-mat/issues/41)) ([4cd7e23](https://github.com/thinkJD/bibli-o-mat/commit/4cd7e23a6e8d7a2e9dd271336603b06c6d051c09))
+* **deps:** update dependency requests to v2.31.0 ([#40](https://github.com/thinkJD/bibli-o-mat/issues/40)) ([51df553](https://github.com/thinkJD/bibli-o-mat/commit/51df55380d2729c523bb5c3c89eafa1f87f1f0b7))
+* **deps:** update dependency rich to v13.4.2 ([#42](https://github.com/thinkJD/bibli-o-mat/issues/42)) ([d95afef](https://github.com/thinkJD/bibli-o-mat/commit/d95afef453106757065947debe65e71973b68a40))
+* **deps:** update dependency tinydb to v4.8.0 ([#44](https://github.com/thinkJD/bibli-o-mat/issues/44)) ([955650f](https://github.com/thinkJD/bibli-o-mat/commit/955650f858bc8dcfc86633a4ce779612dad20b6c))
+
 ## [0.2.1](https://github.com/thinkJD/bibli-o-mat/compare/v0.2.0...v0.2.1) (2023-04-30)
 
 
