@@ -56,7 +56,7 @@ def list_users():
     """list all bibli-o-mat users.
     """
     table = Table('Name', 'Email', 'ID')
-    for user in ch.get_credentials():
+    for user in ch.get_user_list():
         table.add_row(user['name'], user['mail'], user['id'])
     console.print(table)
 

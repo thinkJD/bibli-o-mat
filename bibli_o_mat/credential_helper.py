@@ -19,13 +19,13 @@ class CredentialHelper():
             print(f'Other error occurred: {err}')
         return r.json()['token']
 
-    def refresh_token(self, card_number: str):
+    def refresh_token(self, user_id: str):
         cred = Query()
-        result = self.db.search(cred.id == card_number)
-        token = self.get_token(card_number=card_number,
+        result = self.db.search(cred.id == user_id)
+        token = self.get_token(card_number=user_id,
                                password=result[0]['password'])
         self.db.update({'token': token, 'last_refresh': str(
-            time.time())}, cred.id == card_number)
+            time.time())}, cred.id == user_id)
 
     def get_user_id_by_name(self, name: str):
         cred = Query()
@@ -33,15 +33,21 @@ class CredentialHelper():
         if result:
             return result[0]['id']
 
+    def get_user_list(self):
+        cred = Query()
+        result = self.db.search(cred.id.exists())
+        return result
+
     def get_credentials(self, user_id: str = None):
         cred = Query()
-        if user_id:
-            # Return credentials for one id
-            result = self.db.search(cred.id == user_id)
-            return result[0]
-        else:
-            # Return all credentials
-            return self.db.search(cred.id.exists())
+        user = self.db.search(cred.id == user_id)[0]
+        # Refresh token if it is older than 14 days or empty
+        if ((time.time() - float(user['last_refresh']) > 14 * 24 * 60 * 60) or
+                user['token'] == ''):
+            print('refreshing access token')
+            self.refresh_token(user_id)
+            user = self.db.search(cred.id == user_id)[0]
+        return user
 
     def add_user(self, name, mail, id, password):
         token = self.get_token(card_number=id, password=password)
