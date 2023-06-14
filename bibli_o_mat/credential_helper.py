@@ -32,7 +32,7 @@ class CredentialHelper():
         result = self.db.search(cred.name == name)
         if result:
             return result[0]['id']
-        
+
     def get_user_list(self):
         cred = Query()
         result = self.db.search(cred.id.exists())
@@ -42,8 +42,8 @@ class CredentialHelper():
         cred = Query()
         user = self.db.search(cred.id == user_id)[0]
         # Refresh token if it is older than 14 days or empty
-        if ((time.time() - float(user['last_refresh']) > 14*24*60*60) or
-            user['token'] == ''):
+        if ((time.time() - float(user['last_refresh']) > 14 * 24 * 60 * 60) or
+                user['token'] == ''):
             print('refreshing access token')
             self.refresh_token(user_id)
             user = self.db.search(cred.id == user_id)[0]
