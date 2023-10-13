@@ -15,6 +15,27 @@ Da nicht jeder mit diesem Problem auch die Möglichkeit hat einen Rechner zu bet
   https://metropol-mediensuche.de/libraries
 * Einen Mailtrap Account mit eigener Domain und bestandenem DKIM Check
 
+## Install
+
+### Clone source
+* git clone && cd bibli-o-mat
+* Setup dependencies: `poetry shell && poetry install`
+* Test: `bibli-o-mat --help`
+
+
+### Docker 
+* Pull latest image: `docker pull ghcr.io/derhuerst/bibli-o-mat:main`
+* `docker run -it --rm -v $PWD:/usr/app/data" ghcr.io/derhuerst/bibli-o-mat:main --help`
+
+### Docker Compose
+* Start Ofelia scheduler with `docker-compose -f docker_compose.yaml up -d`
+
+## Configuration
+
+First aus `add-user` to add a user to the bibli-o-mat. See the documentation below to get more information about the parameters. Each user is stored in a local database in the `data` folder. The database is created automatically. You can also add more users later.
+
+Use the `renew` command to renew all due (3 days before deadline) media. the command takes a list of user names as parameter.
+
 # CLI
 
 **Usage**:
