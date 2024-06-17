@@ -21,7 +21,7 @@ rich = "^13.3.4"
 pytest = "^7.0.0"
 
 [tool.poetry.group.dev.dependencies]
-typer-cli = "^0.0.13"
+typer-cli = "^0.12.0"
 autopep8 = "^2.0.2"
 
 [build-system]
